@@ -28,6 +28,11 @@ npm install
 
 ```
 ---
+
+> [!NOTE]
+> Make sure to change env
+
+ 
 ##  API Endpoints
 
 ```json
