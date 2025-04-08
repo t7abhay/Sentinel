@@ -15,6 +15,9 @@ Sentinel is a pluggable, self-hosted authentication and role-based access contro
 - 🧱 Sequelize ORM support for PostgreSQL, MySQL, SQLite, etc.
 
 ---
+> [!IMPORTANT]
+> [Postman collection link ](https://postman.co/workspace/sentinel~b74589e2-12c5-41e9-9f29-24cf78d93e00/collection/19138437-d129d1df-7742-4fc3-a74c-bf90ddf70600?action=share&creator=19138437)
+  
 
 ## 📦 Installation
 
