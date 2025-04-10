@@ -9,6 +9,7 @@ import { seedDefaultRoles } from "./seeders/seedRoles.js";
 import { sequelize } from "./config/DB/dbConnection.js";
 import session from "express-session";
 import authRoutes from "./routes/auth.route.js";
+import healthCheck from "./routes/healthcheck.route.js";
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -49,12 +50,13 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/auth", healthCheck);
 
 sequelize
     .authenticate()
     .then(() => {
         console.log("Database connected successfully");
-        return sequelize.sync();
+        return sequelize.sync({ alter: true });
     })
     .then(() => {
         console.log("Models synced");
