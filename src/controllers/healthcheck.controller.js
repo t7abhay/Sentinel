@@ -5,7 +5,7 @@ export const healthCheck = async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                { message: "Service is up and running 🍎" },
+                { message: "Service is up and running 🍏" },
                 "Healthy"
             )
         );
