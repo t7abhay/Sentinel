@@ -35,7 +35,7 @@ npm install
  
 ##  API Endpoints
 
-```json
+```bash
 POST /api/v1/register
 Request:
 {
@@ -52,7 +52,7 @@ Response:
 
 ```
 
-```json
+```bash
 POST /api/v1/auth/login
  
 {
@@ -70,7 +70,7 @@ POST /api/v1/auth/login
 
 ```
 
-```json
+```bash
 
 
 GET /api/v1/get-profile
@@ -82,7 +82,7 @@ GET /api/v1/get-profile
 
 ```
 
-```json
+```bash
 POST /api/v1/change-password
 
 
@@ -102,7 +102,7 @@ Response:
 > [!WARNING]
 > Following route is only meant for admins/owners
 
-```json
+```bash
 PATCH /api/v1/users/:id/update-role
 
 
@@ -119,7 +119,7 @@ Response:{
 }
 ```
 
-```json
+```bash
 POST /api/v1/create-admins
 
 
