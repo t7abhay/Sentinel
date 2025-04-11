@@ -1,0 +1,10 @@
+node_modules
+test
+test/
+render.yaml
+
+prettierrc
+.prettierignore
+.gitignore
+
+.env

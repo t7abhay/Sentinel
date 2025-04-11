@@ -22,7 +22,7 @@ Sentinel is a pluggable, self-hosted authentication and role-based access contro
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/yourusername/sentinel.git
+git clone https://github.com/t7abhay/sentinel.git
 cd sentinel
 npm install
 
@@ -36,21 +36,25 @@ npm install
 ##  API Endpoints
 
 ```json
-POST /api/v1/auth/register
-Content-Type: application/json
-
- Response
+POST /api/v1/register
+Request:
 {
-  "username": "ziggy",
-  "email": "ziggy@example.com",
-  "password": "123456",
-  "roleId": 1
+  "username": "johndoe",
+  "email": "john@example.com",
+  "password": "strongpassword123"
+}
+
+Response:
+{
+  "accessToken": "eyJhbGciOi...",
+  "refreshToken": "jfd29364Oi..."
+}
 
 ```
 
 ```json
 POST /api/v1/auth/login
-Content-Type: application/json
+ 
 {
   "username": "ziggy",
   "password": "123456"
@@ -60,13 +64,76 @@ Content-Type: application/json
   "user": {
     "id": 1,
     "username": "ziggy",
-    "email": "ziggy@example.com",
-    "roleName": "admin"
+    "email": "ziggy@example.com"
   }
 }
 
+```
 
+```json
+
+
+GET /api/v1/get-profile
+{
+ "data":{
+   "user":{}
+ }
+}
 
 ```
 
+```json
+POST /api/v1/change-password
 
+
+Request: 
+{
+  "oldPassword": "oldpass123",
+  "newPassword": "newpass456"
+}
+
+Response:
+{
+    "message": "Password updated successfully"
+}
+
+```
+
+> [!WARNING]
+> Following route is only meant for admins/owners
+
+```json
+PATCH /api/v1/users/:id/update-role
+
+
+
+Request:
+{
+  "Authorization":"Bearer <accessToken>",
+ "roleId": 
+}
+
+
+Response:{
+  "message":"user role update"
+}
+```
+
+```json
+POST /api/v1/create-admins
+
+
+Request:
+{
+    "username":"admin",
+    "email":"admin@email.com",
+    "password":"admin@password",
+    "adminKey":"admin@keyfromEnv"
+}
+
+Response:
+{
+    "message": "Admin user created successfully"
+}
+
+```
