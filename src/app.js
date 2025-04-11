@@ -5,7 +5,6 @@ import cors from "cors";
 import { rateLimit } from "express-rate-limit";
 import morgan from "morgan";
 import { seedDefaultRoles } from "./seeders/seedRoles.js";
-import lusca from "lusca";
 import { sequelize } from "./config/DB/dbConnection.js";
 import session from "express-session";
 import authRoutes from "./routes/auth.route.js";
@@ -49,7 +48,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-app.use(lusca.csrf());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/auth", healthCheck);
 
