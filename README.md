@@ -8,8 +8,7 @@ Sentinel is a pluggable, self-hosted authentication and role-based access contro
 
 - ✅ Authentication via username/email + password  
 - 🔒 Password hashing with bcrypt  
-- 🛡️ Role-Based Access Control (RBAC)  
-- 🔁 Dynamic role and permission assignment  
+- 🛡️ Role-Based Access Control (RBAC)   
 - 📦 Plug-and-play REST API  
 - 🌍 Self-hosted with environment config  
 - 🧱 Sequelize ORM support for PostgreSQL, MySQL, SQLite, etc.
@@ -32,7 +31,7 @@ npm install
 > [!NOTE]
 > Make sure to change env
 
- 
+---
 ##  API Endpoints
 
 ```bash
@@ -137,3 +136,12 @@ Response:
 }
 
 ```
+
+---
+
+## Tech Stack
+
+- Nodejs
+- Expressjs
+- Sequalize
+- Docker
