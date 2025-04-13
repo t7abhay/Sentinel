@@ -1,47 +1,44 @@
 import { User, Role } from "../models/index.js";
 
-import { validationResult, matchedData } from "express-validator";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-export const register = async (req, res, next) => {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
+export const register = asyncHandler(async (req, res) => {
+    const { email, username, password } = req.body;
 
-        const { username, email, password } = matchedData(req);
-        const userExists = await User.findOne({ where: { email } });
-
-        if (userExists) {
-            return res
-                .status(400)
-                .json({ message: "Email already registered." });
-        }
-
-        const defaultRole = await Role.findOne({
-            where: { roleName: process.env.DEFAULT_ROLE },
-        });
-
-        if (!defaultRole) {
-            return res.status(500).json({
-                message: "Default role not found. Please initialize roles.",
-            });
-        }
-        const user = await User.create({
-            username,
-            email,
-            password,
-            roleId: defaultRole.id,
-        });
-        res.status(201).json(
-            new ApiResponse(200, user, "User registered successfully ")
-        );
-    } catch (err) {
-        next(err);
+    if ([email, username, password].some((field) => field?.trim() === "")) {
+        throw new ApiError(400, "All fields are required");
     }
-};
+
+    const userExists = await User.findOne({ where: { email } });
+
+    if (userExists) {
+        return res
+            .status(404)
+            .json(new ApiError(404, "Email already registered."));
+    }
+
+    const defaultRole = await Role.findOne({
+        where: { roleName: process.env.DEFAULT_ROLE },
+    });
+
+    if (!defaultRole) {
+        return res.status(500).json({
+            message: "Default role not found. Please initialize roles.",
+        });
+    }
+    const user = await User.create({
+        username,
+        email,
+        password,
+        roleId: defaultRole.id,
+    });
+
+    res.status(201).json(
+        new ApiResponse(200, user, "User registered successfully  ")
+    );
+});
 
 export const login = async (req, res, next) => {
     try {
@@ -67,8 +64,8 @@ export const login = async (req, res, next) => {
 
         const options = {
             httpOnly: true,
-            secure: true,
-            sameSite: "None",
+            // secure: true,
+            // sameSite: "None",
         };
 
         return res
