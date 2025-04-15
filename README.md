@@ -33,110 +33,151 @@ npm install
 
 ---
 ##  API Endpoints
+# 🛡️ Auth & User API Documentation
 
-```bash
-POST /api/v1/register
-Request:
+**Base URL:** `/api`
+
+---
+
+## 📌 Register User
+
+**Endpoint:** `POST /auth/register`  
+**Description:** Registers a new user with default role.  
+**Request Body:**
+```json
 {
+  "email": "user@example.com",
   "username": "johndoe",
-  "email": "john@example.com",
-  "password": "strongpassword123"
+  "password": "password123"
 }
-
-Response:
-{
-  "accessToken": "eyJhbGciOi...",
-  "refreshToken": "jfd29364Oi..."
-}
-
 ```
 
-```bash
-POST /api/v1/auth/login
- 
-{
-  "username": "ziggy",
-  "password": "123456"
-}
+**Responses:**
 
-{
-  "user": {
-    "id": 1,
-    "username": "ziggy",
-    "email": "ziggy@example.com"
-  }
-}
+- `201 Created`: User registered successfully.
+- `400 Bad Request`: Missing or empty fields / Password too short.
+- `409 Conflict`: Email already registered.
+- `500 Internal Server Error`: Default role not found.
 
+---
+
+## 📌 Login User
+
+**Endpoint:** `POST /auth/login`  
+**Description:** Authenticates user and sets tokens in HTTP-only cookies.  
+**Request Body:**
+```json
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
 ```
 
-```bash
+**Responses:**
 
+- `200 OK`: Login successful, access and refresh tokens sent.
+- `400 Bad Request`: Missing credentials or invalid password.
+- `404 Not Found`: Account does not exist.
 
-GET /api/v1/get-profile
+**Cookies Set:**
+
+- `accessToken`: JWT access token
+- `refreshToken`: JWT refresh token
+
+---
+
+## 📌 Logout User
+
+**Endpoint:** `POST /auth/logout`  
+**Description:** Logs out user by clearing tokens and invalidating refresh token.
+
+**Responses:**
+
+- `200 OK`: User logged out successfully or already logged out.
+
+---
+
+## 📌 Get My Profile
+
+**Endpoint:** `GET /auth/me`  
+**Description:** Returns currently logged-in user's profile.  
+**Headers:**
+
+- `Authorization: Bearer <accessToken>`
+
+**Responses:**
+
+- `200 OK`: User profile data.
+- `400 Bad Request`: User not authenticated.
+
+---
+
+## 📌 Change Password
+
+**Endpoint:** `POST /auth/change-password`  
+**Description:** Allows user to update password.  
+**Request Body:**
+```json
 {
- "data":{
-   "user":{}
- }
-}
-
-```
-
-```bash
-POST /api/v1/change-password
-
-
-Request: 
-{
-  "oldPassword": "oldpass123",
+  "currentPassword": "oldpass123",
   "newPassword": "newpass456"
 }
-
-Response:
-{
-    "message": "Password updated successfully"
-}
-
 ```
 
-> [!WARNING]
-> Following route is only meant for admins/owners
+**Responses:**
 
-```bash
-PATCH /api/v1/users/:id/update-role
+- `200 OK`: Password updated.
+- `400 Bad Request`: Current password incorrect.
+- `409 Conflict`: New password is same as old.
 
+---
 
+## 📌 Update User Role
 
-Request:
+**Endpoint:** `PATCH /auth/user/:id/role`  
+**Description:** Updates the role of a specific user (admin only).  
+**Request Body:**
+```json
 {
-  "Authorization":"Bearer <accessToken>",
- "roleId": 
-}
-
-
-Response:{
-  "message":"user role update"
+  "roleId": 2
 }
 ```
 
-```bash
-POST /api/v1/create-admins
+**Responses:**
 
+- `200 OK`: User role updated.
+- `404 Not Found`: User or role not found.
 
-Request:
+---
+
+## 📌 Create Admin
+
+**Endpoint:** `POST /auth/create-admin`  
+**Description:** Creates a new admin user.  
+**Request Body:**
+```json
 {
-    "username":"admin",
-    "email":"admin@email.com",
-    "password":"admin@password",
-    "adminKey":"admin@keyfromEnv"
+  "username": "admin",
+  "email": "admin@example.com",
+  "password": "admin123",
+  "adminKey": "SOME_SECRET_KEY"
 }
-
-Response:
-{
-    "message": "Admin user created successfully"
-}
-
 ```
 
+**Responses:**
+
+- `201 Created`: Admin user created.
+- `400 Bad Request`: User already exists.
+- `403 Forbidden`: Invalid admin key.
+- `500 Internal Server Error`: Admin role not configured.
+
+---
+
+## 🔐 Notes
+
+- All protected routes require authentication via JWT `accessToken`.
+- Tokens are stored as HTTP-only cookies.
+- Refresh logic should be handled separately via a refresh endpoint (not included here).
 ---
 
 ## Tech Stack

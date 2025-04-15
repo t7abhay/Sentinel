@@ -14,13 +14,13 @@ import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 
 const router = express.Router();
 
-router.get("/get-profile", authenticate, getMyProfile);
+router.get("/profile", authenticate, getMyProfile);
 
 router.post("/register", register);
 router.post("/login", login);
 
-router.post("/change-password", authenticate, changePassword);
 router.post("/logout", logout);
+router.post("/change-password", authenticate, changePassword);
 
 router.patch(
     "/users/:id/update-role",

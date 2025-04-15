@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { User, Role } from "../models/index.js";
 
 export const authenticate = async (req, res, next) => {
-    let token = null;
+    let token = req.cookies.accessToken;
     const authHeader = req.headers.authorization;
     if (authHeader && authHeader.startsWith("Bearer ")) {
         token = authHeader.split(" ")[1];
