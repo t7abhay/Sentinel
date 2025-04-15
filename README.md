@@ -185,4 +185,4 @@ npm install
 - ![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white&style=flat-square) Express.js
 - ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?logo=sequelize&logoColor=white&style=flat-square) Sequelize ORM
 - ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white&style=flat-square) Docker
-
+- ![Mysql](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white&style=flat-square) Mysql
