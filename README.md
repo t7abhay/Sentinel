@@ -16,7 +16,6 @@ Sentinel is a pluggable, self-hosted authentication and role-based access contro
 ---
 > [!IMPORTANT]
 > [Postman collection link ](https://postman.co/workspace/sentinel~b74589e2-12c5-41e9-9f29-24cf78d93e00/collection/19138437-d129d1df-7742-4fc3-a74c-bf90ddf70600?action=share&creator=19138437)
-  
 
 ## 📦 Installation
 
@@ -24,7 +23,6 @@ Sentinel is a pluggable, self-hosted authentication and role-based access contro
 git clone https://github.com/t7abhay/sentinel.git
 cd sentinel
 npm install
-
 ```
 ---
 
@@ -32,8 +30,8 @@ npm install
 > Make sure to change env
 
 ---
-##  API Endpoints
-# 🛡️ Auth & User API Documentation
+
+## 🔐 Auth & User API Documentation
 
 **Base URL:** `/api`
 
@@ -178,11 +176,13 @@ npm install
 - All protected routes require authentication via JWT `accessToken`.
 - Tokens are stored as HTTP-only cookies.
 - Refresh logic should be handled separately via a refresh endpoint (not included here).
+
 ---
 
-## Tech Stack
+## 💻 Tech Stack
 
-- Nodejs
-- Expressjs
-- Sequalize
-- Docker
+- ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white&style=flat-square) Node.js
+- ![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white&style=flat-square) Express.js
+- ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?logo=sequelize&logoColor=white&style=flat-square) Sequelize ORM
+- ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white&style=flat-square) Docker
+
