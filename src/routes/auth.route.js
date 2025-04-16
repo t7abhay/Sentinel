@@ -7,7 +7,6 @@ import {
     logout,
     updateUserRole,
     createAdmin,
-    homeLander,
 } from "../controllers/auth.controller.js";
 
 import { authenticate } from "../middlewares/authMiddleware.js";
@@ -15,7 +14,6 @@ import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", homeLander);
 router.get("/profile", authenticate, getMyProfile);
 
 router.post("/register", register);
