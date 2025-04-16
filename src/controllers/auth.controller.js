@@ -5,8 +5,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const homeLander = asyncHandler(async (req, res) => {
-    return res.send(export const homeLander = asyncHandler(async (req, res) => {
-  return res.send(`
+    return res.send(`
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -72,8 +71,6 @@ export const homeLander = asyncHandler(async (req, res) => {
     </body>
     </html>
   `);
-});
-);
 });
 
 export const register = asyncHandler(async (req, res) => {

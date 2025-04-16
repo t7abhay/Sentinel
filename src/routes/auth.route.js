@@ -15,8 +15,8 @@ import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 
 const router = express.Router();
 
-router.get("/profile", authenticate, getMyProfile);
 router.get("/", homeLander);
+router.get("/profile", authenticate, getMyProfile);
 
 router.post("/register", register);
 router.post("/login", login);

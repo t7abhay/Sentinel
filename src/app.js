@@ -7,8 +7,8 @@ import morgan from "morgan";
 import { seedDefaultRoles } from "./seeders/seedRoles.js";
 import { sequelize } from "./config/DB/dbConnection.js";
 import session from "express-session";
-import authRoutes from "./routes/auth.route.js";
-import healthCheck from "./routes/healthcheck.route.js";
+import authRouter from "./routes/auth.route.js";
+import healthRouter from "./routes/healthcheck.route.js";
 
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -48,8 +48,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/auth", healthCheck);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/auth", healthRouter);
 
 sequelize
     .authenticate()
