@@ -154,8 +154,8 @@ export const changePassword = asyncHandler(async (req, res) => {
 
     if (!isMatch) {
         return res
-            .status(400)
-            .json(new ApiError(400, "Incorrect current password"));
+            .status(401)
+            .json(new ApiError(401, "Incorrect current password"));
     }
 
     if (newPassword === currentPassword) {
