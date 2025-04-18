@@ -80,8 +80,8 @@ export const login = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        // secure: true,
-        // sameSite: "None",  // temp  coded   for local testing
+        secure: true,
+        sameSite: "None", // temp  coded   for local testing
     };
 
     return res
