@@ -1,6 +1,11 @@
 import { Sequelize } from "sequelize";
+import fs from "fs";
 import dotenv from "dotenv";
 dotenv.config();
+// const caCert = fs.readFileSync(
+//     "/etc/secrets/ca.pem" | "../../../certs/ca.pem",
+//     "utf8"
+// );
 
 export const sequelize = new Sequelize(
     process.env.DB_NAME,
@@ -11,6 +16,12 @@ export const sequelize = new Sequelize(
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
         dialect: process.env.DB_DIALECT,
+        dialectOptions: {
+            ssl: {
+                required: true,
+                ca: Buffer.from(process.env.CA_CERT, "base64").toString("utf8"),
+            },
+        },
         logging: false,
     }
 );
