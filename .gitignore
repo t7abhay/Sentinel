@@ -152,5 +152,4 @@ dist
 # pre test files to make sure the entire project is setup correct
 test.index.js 
 
-
-certs
+*.pem

@@ -1,12 +1,9 @@
 import { Sequelize } from "sequelize";
-import fs from "fs";
+import { loadCACert } from "./loadCert.js";
 import dotenv from "dotenv";
 dotenv.config();
-const caCert = fs.readFileSync(
-    "/etc/secrets/ca.pem",
-    "utf8"
-);
 
+const caCert = loadCACert();
 export const sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
@@ -20,6 +17,7 @@ export const sequelize = new Sequelize(
             ssl: {
                 required: true,
                 ca: caCert,
+                rejectUnauthorized: false,
             },
         },
         logging: false,
