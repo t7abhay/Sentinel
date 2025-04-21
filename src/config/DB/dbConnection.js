@@ -3,7 +3,7 @@ import fs from "fs";
 import dotenv from "dotenv";
 dotenv.config();
 const caCert = fs.readFileSync(
-    "/etc/secrets/ca.pem" | "../../../certs/ca.pem",
+    "/etc/secrets/ca.pem",
     "utf8"
 );
 
