@@ -81,7 +81,7 @@ export const login = asyncHandler(async (req, res) => {
     const options = {
         httpOnly: true,
         secure: true,
-        sameSite: "lax",
+        sameSite: "None",
     };
 
     return res
