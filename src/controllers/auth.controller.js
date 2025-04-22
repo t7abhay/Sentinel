@@ -69,7 +69,7 @@ export const login = asyncHandler(async (req, res) => {
     const isMatch = await user.isPasswordCorrect(password);
 
     if (!isMatch) {
-        return res.status(400).json(new ApiError(401, "Invalid credentials"));
+        return res.status(401).json(new ApiError(401, "Invalid credentials"));
     }
 
     const accessToken = await user.generateAccessToken();
@@ -81,7 +81,7 @@ export const login = asyncHandler(async (req, res) => {
     const options = {
         httpOnly: true,
         secure: true,
-        sameSite: "None", // temp  coded   for local testing
+        sameSite: "lax",
     };
 
     return res
@@ -229,3 +229,29 @@ export const createAdmin = async (req, res, next) => {
         .status(201)
         .json(new ApiResponse(201, newUser, "Admin user created successfully"));
 };
+
+export const refreshToken = asyncHandler(async (req, res) => {
+    const clientRefreshToken = req.cookies?.refreshToken;
+
+    console.log(`\n\n\n\n${clientRefreshToken}🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎\n\n\n`);
+
+    if (!clientRefreshToken) {
+        return res
+            .status(401)
+            .json(new ApiError(401, "Refresh token not provided"));
+    }
+
+    const user = await User.findOne({
+        where: { refreshToken: clientRefreshToken },
+    });
+
+    if (!user) {
+        return res.status(401).json(new ApiError(401, "Invalid refresh token"));
+    }
+
+    const accessToken = await user.generateAccessToken();
+
+    return res.status(200).json({
+        accessToken,
+    });
+});

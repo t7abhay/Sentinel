@@ -18,6 +18,7 @@ app.set("trust proxy", 1);
 const corsConfig = {
     origin: process.env.CORS_ORIGIN,
     credentials: true,
+    secure: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
 };
 const limiter = rateLimit({
@@ -34,7 +35,7 @@ app.use(
         resave: false,
         saveUninitialized: true,
         cookie: {
-            secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+            secure: process.env.NODE_ENV === "production",
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24, // 1 day
         },
@@ -45,8 +46,8 @@ app.use(helmet());
 app.use(cors(corsConfig));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
 app.use(cookieParser());
+app.use(morgan("dev"));
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/auth", healthRouter);
