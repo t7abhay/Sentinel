@@ -141,11 +141,11 @@ export const getMyProfile = asyncHandler(async (req, res) => {
     }
 
     const userInfo =  {
-        user.id,
-        user.username,
-        user.email,
-        user.createdAt,
-        user.role
+      
+        user.data.username,
+        user.data.email,
+        user.data.createdAt,
+        user.data.role
     }
     
     return res
