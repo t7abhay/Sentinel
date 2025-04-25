@@ -44,7 +44,6 @@ export const register = asyncHandler(async (req, res) => {
     const user = await User.create({
         username,
         email,
-        password,
         roleId: defaultRole.id,
     });
 
@@ -80,7 +79,7 @@ export const login = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true,
+        // secure: true,
         sameSite: "None",
     };
 
@@ -141,9 +140,17 @@ export const getMyProfile = asyncHandler(async (req, res) => {
         return res.status(400).json(new ApiError(400, "Unauthorized"));
     }
 
+    const userInfo =  {
+        user.id,
+        user.username,
+        user.email,
+        user.createdAt,
+        user.role
+    }
+    
     return res
         .status(200)
-        .json(new ApiResponse(200, user, "User fetched successfully"));
+        .json(new ApiResponse(200, userInfo, "User fetched successfully"));
 });
 
 export const changePassword = asyncHandler(async (req, res) => {
@@ -233,7 +240,7 @@ export const createAdmin = async (req, res, next) => {
 export const refreshToken = asyncHandler(async (req, res) => {
     const clientRefreshToken = req.cookies?.refreshToken;
 
-    console.log(`\n\n\n\n${clientRefreshToken}🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎\n\n\n`);
+   
 
     if (!clientRefreshToken) {
         return res
