@@ -140,14 +140,13 @@ export const getMyProfile = asyncHandler(async (req, res) => {
         return res.status(400).json(new ApiError(400, "Unauthorized"));
     }
 
-    const userInfo =  {
-      
-        user.data.username,
-        user.data.email,
-        user.data.createdAt,
-        user.data.role
-    }
-    
+    const userInfo = {
+        username: user.data,
+        id: user.id,
+        email: user.email,
+        createdAt: user.createdAt,
+    };
+
     return res
         .status(200)
         .json(new ApiResponse(200, userInfo, "User fetched successfully"));
@@ -239,8 +238,6 @@ export const createAdmin = async (req, res, next) => {
 
 export const refreshToken = asyncHandler(async (req, res) => {
     const clientRefreshToken = req.cookies?.refreshToken;
-
-   
 
     if (!clientRefreshToken) {
         return res
