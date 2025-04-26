@@ -24,7 +24,6 @@ router.post("/logout", logout);
 router.post("/change-password", authenticate, changePassword);
 router.post("/v/refreshToken", refreshToken);
 
-
 router.patch(
     "/users/:id/update-role",
     authenticate,

@@ -27,7 +27,7 @@ const UserModel = (sequelize) => {
                 type: DataTypes.TEXT,
                 allowNull: false,
                 validate: {
-                    len: [6, 100],
+                    len: [4, 100],
                 },
             },
             refreshToken: {
