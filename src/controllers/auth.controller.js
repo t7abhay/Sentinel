@@ -7,7 +7,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 export const register = asyncHandler(async (req, res) => {
     const { email, username, password } = req.body;
 
-    if ([email, username, password].some((field) => field?.trim() === "")) {
+    if ([email, username, password].some((field) => field.trim() === "")) {
         return res
             .status(400)
             .json(new ApiError(400, "All fields are required"));
@@ -78,11 +78,12 @@ export const login = asyncHandler(async (req, res) => {
 
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
-
+    const isProduction = process.env.NODE_ENV === "production";
     const options = {
         httpOnly: true,
-        secure: true,
-        sameSite: "None",
+        secure: isProduction,
+        sameSite: isProduction ? "None" : "Lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
     };
 
     return res
@@ -143,10 +144,12 @@ export const getMyProfile = asyncHandler(async (req, res) => {
     }
 
     const userInfo = {
-        username: user.data,
+        username: user.username,
         id: user.id,
         email: user.email,
         createdAt: user.createdAt,
+        roleId: user.roleId,
+        roleName: user.role.roleName,
     };
 
     return res
@@ -247,17 +250,33 @@ export const refreshToken = asyncHandler(async (req, res) => {
             .json(new ApiError(401, "Refresh token not provided"));
     }
 
-    const user = await User.findOne({
-        where: { refreshToken: clientRefreshToken },
-    });
-
-    if (!user) {
-        return res.status(401).json(new ApiError(401, "Invalid refresh token"));
+    let decoded;
+    try {
+        decoded = jwt.verify(
+            clientRefreshToken,
+            process.env.REFRESH_TOKEN_SECRET
+        );
+    } catch (error) {
+        return res.status(403).json(new ApiError(403, "Invalid refresh token"));
     }
 
+    const user = await User.findOne({
+        where: { id: decoded.id, refreshToken: clientRefreshToken },
+    });
+    if (!user) {
+        return res
+            .status(401)
+            .json(new ApiError(401, "Refresh token not found in database"));
+    }
+    const options = {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+    };
     const accessToken = await user.generateAccessToken();
+    const refreshToken = await user.generateRefreshToken();
 
-    return res.status(200).json({
+    return res.status(200).cookie("refreshToken", refreshToken, options).json({
         accessToken,
     });
 });
