@@ -18,7 +18,7 @@ app.set("trust proxy", 1);
 const corsConfig = {
     origin: process.env.CORS_ORIGIN,
     credentials: true,
-    // secure: true,
+    secure: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
 };
 const limiter = rateLimit({
