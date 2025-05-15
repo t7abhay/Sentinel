@@ -17,6 +17,11 @@ Sentinel is a pluggable, self-hosted authentication and role-based access contro
 > [!IMPORTANT]
 > [Postman collection link ](https://documenter.getpostman.com/view/19138437/2sB2qUp5LE)
 
+
+> [!IMPORTANT]
+> [WorkFlow](https://app.eraser.io/workspace/fN75ALMPUkd6uMopyhmu)
+ 
+ 
 ## 📦 Installation
 
 ```bash
