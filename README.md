@@ -19,7 +19,7 @@ Sentinel is a pluggable, self-hosted authentication and role-based access contro
 
 
 > [!IMPORTANT]
-> [WorkFlow](https://app.eraser.io/workspace/fN75ALMPUkd6uMopyhmu)
+> [WorkFlow](https://app.eraser.io/workspace/fN75ALMPUkd6uMopyhmu?origin=share)
  
  
 ## 📦 Installation
